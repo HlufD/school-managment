@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Department {
+  id       String    @id @default(uuid())
+  dep_name String    @unique
+  dep_code String    @unique
+  Student  Student[]
+  courses  Course[]
+
+  @@index([dep_name])
+}
+
+model Student_Type {
+  id        String    @id @default(uuid())
+  type_name String    @unique
+  type_code String    @unique
+  Student   Student[]
+}
+
+model Student {
+  id             String        @id @default(uuid())
+  first_name     String
+  last_name      String
+  age            Int
+  sex            String
+  phone_number   String
+  picture        String
+  type           Student_Type  @relation(fields: [student_TypeId], references: [id])
+  student_TypeId String
+  deparetment    Department    @relation(fields: [departmentId], references: [id])
+  departmentId   String
+  courses        Course[]
+  levels         Level[]
+  years          School_Year[]
+
+  @@index([first_name, phone_number])
+}
+
+model Course {
+  id          String       @id @default(uuid())
+  course_name String
+  course_code String
+  credit_hour Int
+  students    Student[]
+  deraptments Department[]
+
+  @@unique([course_code, course_name])
+  @@index([course_name])
+}
+
+model School_Year {
+  id             String    @id @default(uuid())
+  startring_dtae DateTime
+  end_date       DateTime
+  students       Student[]
+}
+
+model Level {
+  id       String    @id @default(uuid())
+  level    String    @unique
+  students Student[]
+}
+
+model User {
+  id         String @id @default(uuid())
+  first_name String
+  last_name  String
+  username   String @unique
+  password   String
+  picture    String
+  Role       String
+}
