@@ -1,7 +1,12 @@
-import { NextFunction, Request, Response } from "express";
+import jwt from "jsonwebtoken";
 
-const generateToke = function (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {};
+interface body {
+  username: string;
+  first_name: string;
+  last_name: string;
+}
+
+export const generateToke = async function (body: body) {
+  const token = jwt.sign(body, `${process.env.jwt_sec}`);
+  return token;
+};

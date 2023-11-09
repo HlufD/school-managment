@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import departmetRouter from "./src/routes/department";
-import authRoute from "./src/routes/auth";
+import authRoute from "./src/routes/user";
 import { NotFound } from "./src/middlewares/error/NotFound";
 import errorHandler from "./src/middlewares/error/customErrorHandler";
 dotenv.config();
