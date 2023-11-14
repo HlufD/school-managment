@@ -24,6 +24,7 @@ const validationSchema = yup.object().shape({
 function Login() {
   const dispatch = useDispatch();
   const history = useNavigate();
+
   return (
     <section>
       <div className="img-wraper">
@@ -44,6 +45,7 @@ function Login() {
             );
             const data = await res.data;
             dispatch(login(data.user));
+            toast.success("login successful!");
             history("/dashboard");
           } catch (error) {
             console.log(error.response.data);

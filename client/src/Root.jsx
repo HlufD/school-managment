@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,10 +8,10 @@ import Home from "./pages/Home";
 import "rsuite/dist/rsuite.min.css";
 import RegisterStudet from "./components/RegisterStudet";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-function Root() {
-  const [count, setCount] = useState(0);
-  const { isLogedIn, username } = useSelector((store) => store.User);
+import { login } from "./app/feauters/user/userSlice";
 
+function Root() {
+  const { isLogedIn } = useSelector((store) => store.User);
   return (
     <>
       <Routes>

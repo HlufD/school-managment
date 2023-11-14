@@ -1,7 +1,9 @@
 import { Sidenav, Nav, Toggle } from "rsuite";
 import { Icon } from "@rsuite/icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DashboardIcon from "@rsuite/icons/legacy/Dashboard";
+import { MdLogout } from "react-icons/md";
+import { toast } from "react-toastify";
 import {
   FaUniversity,
   FaGraduationCap,
@@ -11,10 +13,29 @@ import {
 import GearCircleIcon from "@rsuite/icons/legacy/GearCircle";
 import React from "react";
 import("../styles/SideNav.scss");
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { logout } from "../app/feauters/user/userSlice";
+axios.defaults.withCredentials = true;
 
 function SideNav() {
   const [expanded, setExpanded] = React.useState(true);
   const [activeKey, setActiveKey] = React.useState("1");
+  const history = useNavigate();
+  const dispatch = useDispatch();
+  const hanldeLogout = async () => {
+    try {
+      const res = await axios.post("http://localhost:5000/api/logout", null, {
+        withCredentials: true,
+      });
+      const data = await res.data;
+      dispatch(logout());
+      toast.success("logout successful!");
+      history("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div
       style={{
@@ -38,7 +59,7 @@ function SideNav() {
         <Sidenav.Body>
           <Nav activeKey={activeKey} onSelect={setActiveKey}>
             <Nav.Item eventKey="1" icon={<DashboardIcon />}>
-              Dashboard
+              <Link to="/dashboard"> Dashboard</Link>
             </Nav.Item>
             <Nav.Menu
               placement="rightStart"
@@ -95,6 +116,9 @@ function SideNav() {
               <Nav.Item eventKey="6-2">Student-Course</Nav.Item>
               <Nav.Item eventKey="6-3">Type | year | Leves</Nav.Item>
             </Nav.Menu>
+            <Nav.Item eventKey="7" icon={<Icon as={MdLogout} />}>
+              <p onClick={hanldeLogout}>Logout</p>
+            </Nav.Item>
           </Nav>
         </Sidenav.Body>
         <Sidenav.Toggle onToggle={(expanded) => setExpanded(expanded)} />
