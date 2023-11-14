@@ -4,7 +4,7 @@ const sendCookie = (res: Response, id: string, token: string) => {
     httpOnly: true,
     path: "/",
     sameSite: "lax",
-    expires: new Date(Date.now() + 1000 * 30),
+    expires: new Date(Date.now() + 1000 * 60 * 15),
   });
 };
 

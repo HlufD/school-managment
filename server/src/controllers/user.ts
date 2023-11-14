@@ -59,4 +59,11 @@ const refreshToken = (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-export { login, getUser, verifiyToken, refreshToken };
+const logout = async (req: Request, res: Response) => {
+  const { id } = req.body.user;
+  res.clearCookie(id);
+  req.cookies[id] = "";
+  res.status(200).json({ message: "user logedout", success: true });
+};
+
+export { login, getUser, verifiyToken, refreshToken, logout };

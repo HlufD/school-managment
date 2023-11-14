@@ -7,7 +7,7 @@ interface user {
 
 const generateToken = (user: user) => {
   return jwt.sign(user, process.env.jwt_sec as Secret, {
-    expiresIn: "35s",
+    expiresIn: "15m",
   });
 };
 
