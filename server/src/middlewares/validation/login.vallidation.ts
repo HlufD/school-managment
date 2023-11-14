@@ -7,7 +7,8 @@ const loginVallidation = wrapper(async function (
   res: Response,
   next: NextFunction
 ) {
-  const { error } = userchema.user.validate(req.body);
+  const { username, password } = req.body;
+  const { error } = userchema.user.validate({ username, password });
   if (error) {
     throw new CustomError(error.details[0].message, 422, "validation");
   } else {
@@ -20,7 +21,15 @@ const addUserValidation = wrapper(async function (
   res: Response,
   next: NextFunction
 ) {
-  const { error } = userchema.userTobeAdded.validate(req.body);
+  const { first_name, last_name, username, picture, Role, password } = req.body;
+  const { error } = userchema.userTobeAdded.validate({
+    first_name,
+    last_name,
+    username,
+    picture,
+    Role,
+    password,
+  });
   if (error) {
     throw new CustomError(error.details[0].message, 422, "validation");
   } else {

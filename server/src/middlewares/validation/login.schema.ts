@@ -2,7 +2,7 @@ import Joi from "joi";
 
 const schema = {
   user: Joi.object({
-    username: Joi.string().max(100).required(),
+    username: Joi.string().max(100).required().email(),
     password: Joi.string().max(1000).required().min(3),
   }),
   userTobeAdded: Joi.object({

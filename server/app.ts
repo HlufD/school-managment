@@ -1,18 +1,19 @@
 import express from "express";
 import dotenv from "dotenv";
-import departmetRouter from "./src/routes/department";
-import authRoute from "./src/routes/user";
 import { NotFound } from "./src/middlewares/error/NotFound";
 import errorHandler from "./src/middlewares/error/customErrorHandler";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import userRouter from "./src/Routes/user";
 dotenv.config();
 
 const app = express();
+app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 app.use(express.json());
+app.use(cookieParser());
 
 // route hander middlewares
-app.use("/api/auth", authRoute);
-app.use("/api/departments", departmetRouter);
-
+app.use("/api", userRouter);
 // error handling middlewares
 app.use(errorHandler);
 app.use(NotFound);
