@@ -16,13 +16,21 @@ import("../styles/SideNav.scss");
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { logout } from "../app/feauters/user/userSlice";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 axios.defaults.withCredentials = true;
+
+const NavLink = React.forwardRef(({ href, children, ...rest }, ref) => (
+  <Link ref={ref} to={href} {...rest}>
+    {children}
+  </Link>
+));
 
 function SideNav() {
   const [expanded, setExpanded] = React.useState(true);
   const [activeKey, setActiveKey] = React.useState("1");
   const history = useNavigate();
   const dispatch = useDispatch();
+  const { removeValue } = useLocalStorage("isLogedIn");
   const hanldeLogout = async () => {
     try {
       const res = await axios.post("http://localhost:5000/api/logout", null, {
@@ -30,6 +38,7 @@ function SideNav() {
       });
       const data = await res.data;
       dispatch(logout());
+      removeValue();
       toast.success("logout successful!");
       history("/");
     } catch (error) {
@@ -58,8 +67,13 @@ function SideNav() {
       <Sidenav expanded={expanded}>
         <Sidenav.Body>
           <Nav activeKey={activeKey} onSelect={setActiveKey}>
-            <Nav.Item eventKey="1" icon={<DashboardIcon />}>
-              <Link to="/dashboard"> Dashboard</Link>
+            <Nav.Item
+              as={NavLink}
+              href="/dashboard"
+              eventKey="1"
+              icon={<DashboardIcon />}
+            >
+              Dashboard
             </Nav.Item>
             <Nav.Menu
               placement="rightStart"
@@ -67,10 +81,8 @@ function SideNav() {
               title="Students"
               icon={<Icon as={FaGraduationCap} />}
             >
-              <Nav.Item eventKey="2-1">
-                <Link style={{ textDecoration: "none" }} to={"RegisterStudent"}>
-                  Register Student
-                </Link>
+              <Nav.Item as={NavLink} href="RegisterStudent" eventKey="2-1">
+                Register Student
               </Nav.Item>
               <Nav.Item eventKey="2-2">Viwe Student</Nav.Item>
               <Nav.Item eventKey="2-3">Edit Student</Nav.Item>

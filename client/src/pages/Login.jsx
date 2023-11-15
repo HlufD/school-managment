@@ -7,6 +7,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../app/feauters/user/userSlice";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 axios.defaults.withCredentials = true;
 
 const validationSchema = yup.object().shape({
@@ -24,6 +25,7 @@ const validationSchema = yup.object().shape({
 function Login() {
   const dispatch = useDispatch();
   const history = useNavigate();
+  const { setValue, getValue } = useLocalStorage("isLogedIn");
 
   return (
     <section>
@@ -44,6 +46,8 @@ function Login() {
               }
             );
             const data = await res.data;
+            setValue(true);
+            data.user.isLogedIn = getValue();
             dispatch(login(data.user));
             toast.success("login successful!");
             history("/dashboard");
