@@ -11,7 +11,12 @@ import {
 } from "../services/service";
 
 const createDepartment = wrapper(async (req: Request, res: Response) => {
-  const department = await creatingServices(prisma.department, req.body);
+  const { dep_name, dep_code } = req.body;
+  const department = await creatingServices(
+    prisma.department,
+    { dep_code, dep_name },
+    { dep_code }
+  );
   res.status(201).json({ success: true, department });
 });
 
@@ -33,7 +38,7 @@ const editDepartment = wrapper(async (req: Request, res: Response) => {
     throw new CustomError("invalid id", 403, "Not Exsiting");
   }
   const newDe = await updatingDocumentService(prisma.department, req.body, id);
-  return res.status(200).json({ success: true, newDe });
+  return res.status(200).json({ success: true, department: newDe });
 });
 
 const removeDepartment = wrapper(async (req: Request, res: Response) => {

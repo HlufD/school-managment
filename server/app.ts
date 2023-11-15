@@ -5,7 +5,13 @@ import errorHandler from "./src/middlewares/error/customErrorHandler";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import userRouter from "./src/Routes/user";
+import courseRouter from "./src/Routes/course";
 import departmentRouter from "./src/Routes/department";
+import levelsRouter from "./src/Routes/level";
+import studentTypeRouter from "./src/Routes/student_type";
+import schoolYearRouter from "./src/Routes/school_year";
+import studentRouter from "./src/Routes/student";
+
 dotenv.config();
 
 const app = express();
@@ -16,6 +22,12 @@ app.use(cookieParser());
 // route hander middlewares
 app.use("/api", userRouter);
 app.use("/api/departments", departmentRouter);
+app.use("/api/courese", courseRouter);
+app.use("/api/levels", levelsRouter);
+app.use("/api/student_type", studentTypeRouter);
+app.use("/api/school_years", schoolYearRouter);
+app.use("/api/students", studentRouter);
+
 // error handling middlewares
 app.use(errorHandler);
 app.use(NotFound);

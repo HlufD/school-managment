@@ -1,15 +1,18 @@
 import { CustomError } from "../middlewares/error/customError";
 
-async function creatingServices<T>(modelName: T, body: any) {
-  const { dep_name, dep_code } = body;
-  const existingDocumet = await (modelName as any).findUnique({
-    where: { id: dep_code },
+async function creatingServices<T>(
+  modelName: T,
+  body: any,
+  uniqueKey: any = {}
+) {
+  const existingDocumnet = await (modelName as any).findUnique({
+    where: uniqueKey,
   });
-  if (existingDocumet) {
-    throw new CustomError("Department existes", 403, "Duplication");
+  if (existingDocumnet) {
+    throw new CustomError("Docume existed", 403, "Duplicated key");
   }
   const document = await (modelName as any).create({
-    data: { dep_code, dep_name },
+    data: body,
   });
   return document;
 }
