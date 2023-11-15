@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsnd --respawn app.ts",
-    "dev2": "nodemon script.ts"
+    "dev2": "nodemon app.ts"
   },
   "keywords": [],
   "author": "",

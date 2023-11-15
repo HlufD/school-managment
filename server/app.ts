@@ -5,6 +5,7 @@ import errorHandler from "./src/middlewares/error/customErrorHandler";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import userRouter from "./src/Routes/user";
+import departmentRouter from "./src/Routes/department";
 dotenv.config();
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(cookieParser());
 
 // route hander middlewares
 app.use("/api", userRouter);
+app.use("/api/departments", departmentRouter);
 // error handling middlewares
 app.use(errorHandler);
 app.use(NotFound);
