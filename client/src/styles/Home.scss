@@ -1,0 +1,26 @@
+.header-content-wrapper {
+
+    .dynamic-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: calc(100vh - 70px);
+    }
+
+    .button {
+
+        width: 100%;
+        padding: 15px 20px;
+        background-color: #F37133;
+        border: none;
+        color: white;
+        transition: all .4s ease;
+        cursor: pointer;
+        font-size: 15px;
+
+        &:hover {
+            background-color: #e97640;
+
+        }
+    }
+}

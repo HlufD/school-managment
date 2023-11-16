@@ -81,12 +81,18 @@ function SideNav() {
               title="Students"
               icon={<Icon as={FaGraduationCap} />}
             >
-              <Nav.Item as={NavLink} href="RegisterStudent" eventKey="2-1">
+              <Nav.Item as={NavLink} href="add_student" eventKey="2-1">
                 Register Student
               </Nav.Item>
-              <Nav.Item eventKey="2-2">Viwe Student</Nav.Item>
-              <Nav.Item eventKey="2-3">Edit Student</Nav.Item>
-              <Nav.Item eventKey="2-4">List Student</Nav.Item>
+              <Nav.Item as={NavLink} href="viwe_student" eventKey="2-2">
+                Viwe Student
+              </Nav.Item>
+              <Nav.Item as={NavLink} href="list_students" eventKey="2-3">
+                Edit Student
+              </Nav.Item>
+              <Nav.Item as={NavLink} href="edit_student" eventKey="2-4">
+                List Student
+              </Nav.Item>
             </Nav.Menu>
             <Nav.Menu
               placement="rightStart"
@@ -94,10 +100,18 @@ function SideNav() {
               title="Departments"
               icon={<Icon as={FaUniversity} />}
             >
-              <Nav.Item eventKey="3-1">Add Department</Nav.Item>
-              <Nav.Item eventKey="3-2">Viwe Department</Nav.Item>
-              <Nav.Item eventKey="3-3">Edit Department</Nav.Item>
-              <Nav.Item eventKey="3-4">List Department</Nav.Item>
+              <Nav.Item as={NavLink} href="add_department" eventKey="3-1">
+                Add Department
+              </Nav.Item>
+              <Nav.Item as={NavLink} href="viwe_department" eventKey="3-2">
+                Viwe Department
+              </Nav.Item>
+              <Nav.Item as={NavLink} href="edit_department" eventKey="3-3">
+                Edit Department
+              </Nav.Item>
+              <Nav.Item as={NavLink} href="list_departments" eventKey="3-4">
+                List Department
+              </Nav.Item>
             </Nav.Menu>
             <Nav.Menu
               placement="rightStart"
@@ -105,10 +119,18 @@ function SideNav() {
               title="Courses"
               icon={<Icon as={FaBookOpen} />}
             >
-              <Nav.Item eventKey="4-1">Add Course</Nav.Item>
-              <Nav.Item eventKey="4-2">Viwe Course</Nav.Item>
-              <Nav.Item eventKey="4-3">Edit Course</Nav.Item>
-              <Nav.Item eventKey="4-4">List Course</Nav.Item>
+              <Nav.Item as={NavLink} href="add_course" eventKey="4-1">
+                Add Course
+              </Nav.Item>
+              <Nav.Item as={NavLink} href="viwe_course" eventKey="4-2">
+                Viwe Course
+              </Nav.Item>
+              <Nav.Item as={NavLink} href="edit_course" eventKey="4-3">
+                Edit Course
+              </Nav.Item>
+              <Nav.Item as={NavLink} href="list_courses" eventKey="4-4">
+                List Course
+              </Nav.Item>
             </Nav.Menu>
             <Nav.Menu
               placement="rightStart"

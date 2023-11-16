@@ -5,6 +5,8 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 import { login } from "../app/feauters/user/userSlice";
 import { useDispatch } from "react-redux";
+import Header from "../components/Header";
+import("../styles/Home.scss");
 
 function Home() {
   const sendRefreshTokenRequest = async () => {
@@ -22,7 +24,7 @@ function Home() {
           dispatch(login(data));
         })
         .catch((err) => toast.error(err));
-    }, 1000 * 5 * 60);
+    }, 1000 * 28);
     return () => clearInterval(interval);
   }, []);
   return (
@@ -32,7 +34,12 @@ function Home() {
       }}
     >
       <SideNav />
-      <Outlet />
+      <div className="header-content-wrapper">
+        <Header />
+        <div className="dynamic-content">
+          <Outlet />
+        </div>
+      </div>
     </div>
   );
 }
