@@ -5,14 +5,10 @@ import Login from "./pages/Login";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import "rsuite/dist/rsuite.min.css";
-import RegisterStudet from "./components/RegisterStudet";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useEffect, useState } from "react";
 import { useLocalStorage } from "./hooks/useLocalStorage";
-import AddCourse from "./pages/Course/AddCourse";
-import ViweCourse from "./pages/Course/ViweCourse";
 import ListCourse from "./pages/Course/ListCourse";
-import EditCourse from "./pages/Course/EditCourse";
 import AddDepartment from "./pages/Department/AddDepartment";
 import ViweDepartment from "./pages/Department/ViweDepartment";
 import ListDepartments from "./pages/Department/ListDepartments";
@@ -37,10 +33,7 @@ function Root() {
         {loggedIn && (
           <>
             <Route path="/dashboard" element={<Home />}>
-              <Route path="add_course" element={<AddCourse />} />
-              <Route path="viwe_course" element={<ViweCourse />} />
               <Route path="list_courses" element={<ListCourse />} />
-              <Route path="edit_course" element={<EditCourse />} />
 
               <Route path="add_department" element={<AddDepartment />} />
               <Route path="viwe_department" element={<ViweDepartment />} />

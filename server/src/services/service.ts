@@ -9,7 +9,7 @@ async function creatingServices<T>(
     where: uniqueKey,
   });
   if (existingDocumnet) {
-    throw new CustomError("Docume existed", 403, "Duplicated key");
+    throw new CustomError("Document already existed", 403, "Duplicated key");
   }
   const document = await (modelName as any).create({
     data: body,

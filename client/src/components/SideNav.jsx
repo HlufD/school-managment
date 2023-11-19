@@ -113,25 +113,14 @@ function SideNav() {
                 List Department
               </Nav.Item>
             </Nav.Menu>
-            <Nav.Menu
-              placement="rightStart"
-              eventKey="4"
-              title="Courses"
+            <Nav.Item
+              as={NavLink}
+              href="list_courses"
+              eventKey="4-1"
               icon={<Icon as={FaBookOpen} />}
             >
-              <Nav.Item as={NavLink} href="add_course" eventKey="4-1">
-                Add Course
-              </Nav.Item>
-              <Nav.Item as={NavLink} href="viwe_course" eventKey="4-2">
-                Viwe Course
-              </Nav.Item>
-              <Nav.Item as={NavLink} href="edit_course" eventKey="4-3">
-                Edit Course
-              </Nav.Item>
-              <Nav.Item as={NavLink} href="list_courses" eventKey="4-4">
-                List Course
-              </Nav.Item>
-            </Nav.Menu>
+              Courses
+            </Nav.Item>
             <Nav.Menu
               placement="rightStart"
               eventKey="5"

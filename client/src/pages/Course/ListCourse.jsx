@@ -1,19 +1,66 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Table } from "rsuite";
 const { Column, HeaderCell, Cell } = Table;
 import { FaTrash, FaRegEdit } from "react-icons/fa";
+import Modal from "../../components/Modal";
+import { useDispatch, useSelector } from "react-redux";
+import { open } from "../../app/feauters/modal/modalSlice";
+import AddCourse from "./AddCourse";
+import EditCourse from "./EditCourse";
+import { removeCourse, setCourse } from "../../app/feauters/course/courseSlice";
+import { useQuery } from "@tanstack/react-query";
 
-const data = [
-  { id: 1, course_name: "red", course_code: "#f00", credit_hour: 3 },
-  { id: 2, course_name: "green", course_code: "#0f0", credit_hour: 6 },
-  { id: 3, course_name: "blue", course_code: "#00f", credit_hour: 3 },
-  { id: 4, course_name: "cyan", course_code: "#0ff", credit_hour: 4 },
-  { id: 5, course_name: "magenta", course_code: "#f0f", credit_hour: 3 },
-];
+import axios from "axios";
+import { fetchRequest, deleteRequest } from "../../utils/apiHelperMethodes";
+import { toast } from "react-toastify";
+axios.defaults.withCredentials = true;
 
 function ListCourse() {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
+  const [id, setId] = useState("");
+
+  const { openFor, isOpend } = useSelector((store) => store.Modal);
+  const { courses } = useSelector((store) => store.Course);
+  const dispatch = useDispatch();
+  let curCourse;
+  // mapping the open modal with componentes
+  const openMap = new Map([
+    ["Add-course", <AddCourse />],
+    ["Edit-course", <EditCourse id={id} />],
+  ]);
+
+  const onAddCourse = () => {
+    dispatch(open("Add-course"));
+  };
+
+  const onEdit = (id) => {
+    dispatch(open("Edit-course"));
+    setId(id);
+  };
+
+  const onDelete = async (id) => {
+    const userResponse = window.confirm(
+      "Are you sure ? you want to remove this Course"
+    );
+    if (userResponse) {
+      const data = await deleteRequest("http://localhost:5000/api/courese", id);
+      if (data["errorType"]) {
+        toast.error(data["message"]);
+      }
+      dispatch(removeCourse({ id }));
+      toast.success(data["message"]);
+    }
+  };
+
+  const fetchCourse = async () => {
+    const data = await fetchRequest("http://localhost:5000/api/courese");
+    dispatch(setCourse({ courses: data.courses }));
+  };
+
+  useEffect(() => {
+    fetchCourse();
+  }, [dispatch]);
 
   return (
     <div className="list">
@@ -22,43 +69,56 @@ function ListCourse() {
           <input type="text" placeholder="search" />
         </div>
         <div className="button-container">
-          <button className="button">Add Course</button>
+          <button onClick={onAddCourse} className="button">
+            Add Course
+          </button>
         </div>
       </header>
       <hr />
-      <Table height={300} data={data}>
-        <Column width={100} align="center" resizable>
+      <Table height={300} data={courses}>
+        <Column width={200} align="center" resizable>
           <HeaderCell>Id</HeaderCell>
           <Cell dataKey="id" />
         </Column>
 
-        <Column width={100} resizable>
+        <Column width={200} resizable>
           <HeaderCell>Course Name</HeaderCell>
           <Cell dataKey="course_name" />
         </Column>
 
-        <Column width={100} resizable>
+        <Column width={200} resizable>
           <HeaderCell>Course Code</HeaderCell>
           <Cell dataKey="course_code" />
         </Column>
 
-        <Column width={100} resizable>
-          <HeaderCell>Course Code</HeaderCell>
-          <Cell dataKey="course_code" />
+        <Column width={200} resizable>
+          <HeaderCell>Credit Hours</HeaderCell>
+          <Cell dataKey="credit_hour" />
         </Column>
         <Column width={100} resizable>
           <HeaderCell>Edit</HeaderCell>
           <Cell>
-            <FaRegEdit />
+            {(course) => (
+              <FaRegEdit
+                className="edit icon"
+                onClick={() => onEdit(course.id)}
+              />
+            )}
           </Cell>
         </Column>
         <Column width={100} resizable>
           <HeaderCell>Delete</HeaderCell>
           <Cell>
-            <FaTrash />
+            {(course) => (
+              <FaTrash
+                className="delete icon"
+                onClick={() => onDelete(course.id)}
+              />
+            )}
           </Cell>
         </Column>
       </Table>
+      {isOpend && <Modal title={openFor}>{openMap.get(openFor)}</Modal>}
     </div>
   );
 }

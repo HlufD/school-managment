@@ -21,7 +21,9 @@ const createCourse = wrapper(async (req: Request, res: Response) => {
     },
     { course_code }
   );
-  res.status(201).json({ success: true, course });
+  return res
+    .status(201)
+    .json({ message: "Course added", success: true, course });
 });
 
 const getAllCourses = wrapper(async (req: Request, res: Response) => {
@@ -46,7 +48,9 @@ const editCourse = wrapper(async (req: Request, res: Response) => {
     req.body,
     id
   );
-  return res.status(200).json({ success: true, course: updatedCourse });
+  return res
+    .status(200)
+    .json({ message: "Course updated!", success: true, course: updatedCourse });
 });
 
 const removeCourse = wrapper(async (req: Request, res: Response) => {
@@ -56,7 +60,9 @@ const removeCourse = wrapper(async (req: Request, res: Response) => {
     throw new CustomError("invalid id", 403, "Not Exsiting");
   }
   const response = await deletingDocumentService(prisma.course, id);
-  return res.status(200).json({ success: true, response });
+  return res
+    .status(200)
+    .json({ message: "Course Removed", success: true, response });
 });
 
 export { createCourse, getAllCourses, getCourse, editCourse, removeCourse };

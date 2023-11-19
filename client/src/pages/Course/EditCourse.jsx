@@ -1,5 +1,10 @@
 import { Formik, Form, Field } from "formik";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
+import { updateRequest } from "../../utils/apiHelperMethodes";
+import { updateCourse } from "../../app/feauters/course/courseSlice";
+import { toast } from "react-toastify";
+import { close } from "../../app/feauters/modal/modalSlice";
 
 const validationSchema = Yup.object().shape({
   course_name: Yup.string()
@@ -13,15 +18,29 @@ const validationSchema = Yup.object().shape({
   credit_hour: Yup.number().required("credit_hour,is required"),
 });
 
-function EditCourse() {
+function EditCourse({ id }) {
+  const { courses } = useSelector((store) => store.Course);
+  const coursetoBeEdited = courses.find((course) => course.id == id);
+  const dispatch = useDispatch();
+
   return (
     <div className="add-course-form">
-      <h5>Edit course</h5>
       <Formik
-        initialValues={{ course_code: "", course_name: "", credit_hour: 0 }}
+        initialValues={coursetoBeEdited}
         validationSchema={validationSchema}
         onSubmit={async (course) => {
-          console.log(course);
+          const data = await updateRequest(
+            "http://localhost:5000/api/courese",
+            id,
+            course
+          );
+          if (data["errorType"]) {
+            toast.error(data["message"]);
+          }
+          console.log(data.course);
+          dispatch(updateCourse({ course: data.course }));
+          toast.success(data["message"]);
+          dispatch(close());
         }}
       >
         {({ values, handleChange, touched, errors }) => (

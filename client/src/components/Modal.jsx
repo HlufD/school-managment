@@ -1,12 +1,34 @@
-import { Modal, Button, ButtonToolbar, Placeholder } from "rsuite";
-import React from "react";
+import ReactDOM from "react-dom";
+import { FaRegWindowClose } from "react-icons/fa";
+import("../styles/modal.scss");
+import { useDispatch, useSelector } from "react-redux";
+import { close } from "../app/feauters/modal/modalSlice";
 
-function Modal({ children }) {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+const Modal = ({ children, title }) => {
+  const { isOpend } = useSelector((store) => store.Modal);
+  const dispatch = useDispatch();
+  const onClose = () => {
+    dispatch(close());
+  };
+  if (!isOpend) return null;
+  return ReactDOM.createPortal(
+    <>
+      <div className="overlay" />
 
-  return <div></div>;
-}
+      <div>
+        <div className="modal-content">
+          <div className="modal-header">
+            <p>{title}</p>
+            <span>
+              <FaRegWindowClose onClick={onClose} />
+            </span>
+          </div>
+          {children}
+        </div>
+      </div>
+    </>,
+    document.getElementById("portal")
+  );
+};
 
 export default Modal;

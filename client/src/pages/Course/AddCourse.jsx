@@ -1,5 +1,10 @@
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import { postRequest } from "../../utils/apiHelperMethodes";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { close } from "../../app/feauters/modal/modalSlice";
+import { addCourse } from "../../app/feauters/course/courseSlice";
 
 const validationSchema = Yup.object().shape({
   course_name: Yup.string()
@@ -14,14 +19,23 @@ const validationSchema = Yup.object().shape({
 });
 
 function AddCourse() {
+  const dispatch = useDispatch();
   return (
     <div className="add-course-form">
-      <h5>Add course</h5>
       <Formik
         initialValues={{ course_code: "", course_name: "", credit_hour: 0 }}
         validationSchema={validationSchema}
         onSubmit={async (course) => {
-          console.log(course);
+          const data = await postRequest(
+            "http://localhost:5000/api/courese",
+            course
+          );
+          if (data["errorType"]) {
+            toast.error(data["message"]);
+          }
+          toast.success(data["message"]);
+          dispatch(addCourse({ course: data.course }));
+          dispatch(close());
         }}
       >
         {({ values, handleChange, touched, errors }) => (
@@ -64,7 +78,7 @@ function AddCourse() {
                 id=""
               />
               {errors.course_code && touched.course_code ? (
-                <p className="error">{errors.course_code}</p>
+                <p className="error">{errors.credit_hour}</p>
               ) : null}
             </div>
             <div>
