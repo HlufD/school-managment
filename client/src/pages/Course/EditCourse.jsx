@@ -37,7 +37,6 @@ function EditCourse({ id }) {
           if (data["errorType"]) {
             toast.error(data["message"]);
           }
-          console.log(data.course);
           dispatch(updateCourse({ course: data.course }));
           toast.success(data["message"]);
           dispatch(close());

@@ -33,9 +33,11 @@ function AddCourse() {
           if (data["errorType"]) {
             toast.error(data["message"]);
           }
-          toast.success(data["message"]);
-          dispatch(addCourse({ course: data.course }));
-          dispatch(close());
+          if (!data["errorType"]) {
+            toast.success(data["message"]);
+            dispatch(addCourse({ course: data.course }));
+            dispatch(close());
+          }
         }}
       >
         {({ values, handleChange, touched, errors }) => (

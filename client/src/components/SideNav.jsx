@@ -94,25 +94,16 @@ function SideNav() {
                 List Student
               </Nav.Item>
             </Nav.Menu>
-            <Nav.Menu
-              placement="rightStart"
+
+            <Nav.Item
+              as={NavLink}
+              href="list_departments"
               eventKey="3"
-              title="Departments"
               icon={<Icon as={FaUniversity} />}
             >
-              <Nav.Item as={NavLink} href="add_department" eventKey="3-1">
-                Add Department
-              </Nav.Item>
-              <Nav.Item as={NavLink} href="viwe_department" eventKey="3-2">
-                Viwe Department
-              </Nav.Item>
-              <Nav.Item as={NavLink} href="edit_department" eventKey="3-3">
-                Edit Department
-              </Nav.Item>
-              <Nav.Item as={NavLink} href="list_departments" eventKey="3-4">
-                List Department
-              </Nav.Item>
-            </Nav.Menu>
+              Departments
+            </Nav.Item>
+
             <Nav.Item
               as={NavLink}
               href="list_courses"
@@ -121,6 +112,7 @@ function SideNav() {
             >
               Courses
             </Nav.Item>
+
             <Nav.Menu
               placement="rightStart"
               eventKey="5"

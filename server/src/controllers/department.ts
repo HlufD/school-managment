@@ -17,7 +17,9 @@ const createDepartment = wrapper(async (req: Request, res: Response) => {
     { dep_code, dep_name },
     { dep_code }
   );
-  res.status(201).json({ success: true, department });
+  return res
+    .status(201)
+    .json({ message: "Department added", success: true, department });
 });
 
 const getAllDepartments = wrapper(async (req: Request, res: Response) => {
@@ -38,7 +40,9 @@ const editDepartment = wrapper(async (req: Request, res: Response) => {
     throw new CustomError("invalid id", 403, "Not Exsiting");
   }
   const newDe = await updatingDocumentService(prisma.department, req.body, id);
-  return res.status(200).json({ success: true, department: newDe });
+  return res
+    .status(200)
+    .json({ message: "Department Updated", success: true, department: newDe });
 });
 
 const removeDepartment = wrapper(async (req: Request, res: Response) => {
@@ -48,7 +52,9 @@ const removeDepartment = wrapper(async (req: Request, res: Response) => {
     throw new CustomError("invalid id", 403, "Not Exsiting");
   }
   const response = await deletingDocumentService(prisma.department, id);
-  return res.status(200).json({ success: true, response });
+  return res
+    .status(200)
+    .json({ message: "Department Removed", success: true, response });
 });
 
 export {

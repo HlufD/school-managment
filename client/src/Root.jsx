@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import ListCourse from "./pages/Course/ListCourse";
 import AddDepartment from "./pages/Department/AddDepartment";
-import ViweDepartment from "./pages/Department/ViweDepartment";
 import ListDepartments from "./pages/Department/ListDepartments";
 import EditDepartment from "./pages/Department/EditDepartment";
 import AddStudent from "./pages/Student/AddStudent";
@@ -34,11 +33,7 @@ function Root() {
           <>
             <Route path="/dashboard" element={<Home />}>
               <Route path="list_courses" element={<ListCourse />} />
-
-              <Route path="add_department" element={<AddDepartment />} />
-              <Route path="viwe_department" element={<ViweDepartment />} />
               <Route path="list_departments" element={<ListDepartments />} />
-              <Route path="edit_department" element={<EditDepartment />} />
 
               <Route path="add_student" element={<AddStudent />} />
               <Route path="viwe_student" element={<ViweStudent />} />

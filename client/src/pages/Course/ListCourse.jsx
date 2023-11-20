@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Table } from "rsuite";
+import { Pagination, Table } from "rsuite";
 const { Column, HeaderCell, Cell } = Table;
 import { FaTrash, FaRegEdit } from "react-icons/fa";
 import Modal from "../../components/Modal";
@@ -18,12 +18,17 @@ axios.defaults.withCredentials = true;
 function ListCourse() {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
+
   const [id, setId] = useState("");
+  const handleChangeLimit = (dataKey) => {
+    setPage(1);
+    setLimit(dataKey);
+  };
 
   const { openFor, isOpend } = useSelector((store) => store.Modal);
   const { courses } = useSelector((store) => store.Course);
   const dispatch = useDispatch();
-  let curCourse;
+
   // mapping the open modal with componentes
   const openMap = new Map([
     ["Add-course", <AddCourse />],
@@ -61,6 +66,12 @@ function ListCourse() {
   useEffect(() => {
     fetchCourse();
   }, [dispatch]);
+  // paggination
+  const data = courses.filter((v, i) => {
+    const start = limit * (page - 1);
+    const end = start + limit;
+    return i >= start && i < end;
+  });
 
   return (
     <div className="list">
@@ -75,7 +86,7 @@ function ListCourse() {
         </div>
       </header>
       <hr />
-      <Table height={300} data={courses}>
+      <Table height={300} data={data}>
         <Column width={200} align="center" resizable>
           <HeaderCell>Id</HeaderCell>
           <Cell dataKey="id" />
@@ -118,6 +129,25 @@ function ListCourse() {
           </Cell>
         </Column>
       </Table>
+      <div style={{ padding: 20 }}>
+        <Pagination
+          prev
+          next
+          first
+          last
+          ellipsis
+          boundaryLinks
+          maxButtons={5}
+          size="xs"
+          layout={["total", "-", "limit", "|", "pager", "skip"]}
+          total={courses.length}
+          limitOptions={[10, 30, 50]}
+          limit={limit}
+          activePage={page}
+          onChangePage={setPage}
+          onChangeLimit={handleChangeLimit}
+        />
+      </div>
       {isOpend && <Modal title={openFor}>{openMap.get(openFor)}</Modal>}
     </div>
   );

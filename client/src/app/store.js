@@ -2,6 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import userSlice from "./feauters/user/userSlice";
 import modalSlice from "./feauters/modal/modalSlice";
 import courseSlice from "./feauters/course/courseSlice";
+import departmentSlice from "./feauters/department/departmentSlice";
 export const store = configureStore({
-  reducer: { User: userSlice, Modal: modalSlice, Course: courseSlice },
+  reducer: {
+    User: userSlice,
+    Modal: modalSlice,
+    Course: courseSlice,
+    Department: departmentSlice,
+  },
 });
