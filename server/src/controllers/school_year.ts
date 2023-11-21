@@ -21,7 +21,9 @@ const createSchool_Year = wrapper(async (req: Request, res: Response) => {
     },
     { year_name }
   );
-  res.status(201).json({ success: true, school_Year });
+  res
+    .status(201)
+    .json({ message: "School Year Added", success: true, school_Year });
 });
 
 const getAllSchool_Years = wrapper(async (req: Request, res: Response) => {
@@ -46,9 +48,11 @@ const editSchool_Year = wrapper(async (req: Request, res: Response) => {
     req.body,
     id
   );
-  return res
-    .status(200)
-    .json({ success: true, school_Year: updatedSchool_Year });
+  return res.status(200).json({
+    message: "School Year Updated",
+    success: true,
+    school_Year: updatedSchool_Year,
+  });
 });
 
 const removeSchool_Year = wrapper(async (req: Request, res: Response) => {
@@ -58,7 +62,9 @@ const removeSchool_Year = wrapper(async (req: Request, res: Response) => {
     throw new CustomError("invalid id", 403, "Not Exsiting");
   }
   const response = await deletingDocumentService(prisma.school_Year, id);
-  return res.status(200).json({ success: true, response });
+  return res
+    .status(200)
+    .json({ message: "School Year Removed", success: true, response });
 });
 
 export {

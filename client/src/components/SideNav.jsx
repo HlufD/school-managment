@@ -49,7 +49,7 @@ function SideNav() {
     <div
       style={{
         position: "sticky",
-        overflowY: "scroll",
+        overflowY: "hidden",
         width: 240,
         height: "100vh",
         paddingTop: "20px",
@@ -107,29 +107,31 @@ function SideNav() {
             <Nav.Item
               as={NavLink}
               href="list_courses"
-              eventKey="4-1"
+              eventKey="4"
               icon={<Icon as={FaBookOpen} />}
             >
               Courses
             </Nav.Item>
 
+            <Nav.Item icon={<Icon as={FaUserCog} />} eventKey="5">
+              Users
+            </Nav.Item>
+
             <Nav.Menu
               placement="rightStart"
               eventKey="5"
-              title="Users"
-              icon={<Icon as={FaUserCog} />}
-            >
-              <Nav.Item eventKey="5-1">Add User</Nav.Item>
-            </Nav.Menu>
-            <Nav.Menu
-              placement="rightStart"
-              eventKey="6"
               title="Othes Settings"
               icon={<GearCircleIcon />}
             >
-              <Nav.Item eventKey="6-1">Course-Department</Nav.Item>
-              <Nav.Item eventKey="6-2">Student-Course</Nav.Item>
-              <Nav.Item eventKey="6-3">Type | year | Leves</Nav.Item>
+              <Nav.Item eventKey="5-1" as={NavLink} href="school-years">
+                School Years
+              </Nav.Item>
+              <Nav.Item as={NavLink} href="levels" eventKey="5-2">
+                Leves
+              </Nav.Item>
+              <Nav.Item as={NavLink} href="student-types" eventKey="5-2">
+                Programs
+              </Nav.Item>
             </Nav.Menu>
             <Nav.Item eventKey="7" icon={<Icon as={MdLogout} />}>
               <p onClick={hanldeLogout}>Logout</p>

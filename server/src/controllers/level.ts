@@ -19,7 +19,7 @@ const createLevel = wrapper(async (req: Request, res: Response) => {
     },
     { level }
   );
-  res.status(201).json({ success: true, Level });
+  res.status(201).json({ message: "level Added", success: true, Level });
 });
 
 const getAllLevels = wrapper(async (req: Request, res: Response) => {
@@ -44,7 +44,9 @@ const editLevel = wrapper(async (req: Request, res: Response) => {
     req.body,
     id
   );
-  return res.status(200).json({ success: true, level: updatedlevel });
+  return res
+    .status(200)
+    .json({ message: "level updated", success: true, level: updatedlevel });
 });
 
 const removeLevel = wrapper(async (req: Request, res: Response) => {
@@ -54,7 +56,9 @@ const removeLevel = wrapper(async (req: Request, res: Response) => {
     throw new CustomError("invalid id", 403, "Not Exsiting");
   }
   const response = await deletingDocumentService(prisma.level, id);
-  return res.status(200).json({ success: true, response });
+  return res
+    .status(200)
+    .json({ message: "level Removed", success: true, response });
 });
 
 export { createLevel, getAllLevels, getLevel, editLevel, removeLevel };

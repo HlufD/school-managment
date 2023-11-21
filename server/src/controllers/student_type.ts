@@ -12,7 +12,7 @@ import { CustomError } from "../middlewares/error/customError";
 
 const createStudent_Type = wrapper(async (req: Request, res: Response) => {
   const { type_name, type_code } = req.body;
-  const course = await creatingServices(
+  const program = await creatingServices(
     prisma.student_Type,
     {
       type_code,
@@ -20,7 +20,7 @@ const createStudent_Type = wrapper(async (req: Request, res: Response) => {
     },
     { type_code }
   );
-  res.status(201).json({ success: true, course });
+  res.status(201).json({ message: "Program Added", success: true, program });
 });
 
 const getAllStudent_Types = wrapper(async (req: Request, res: Response) => {
@@ -48,9 +48,11 @@ const editStudent_Type = wrapper(async (req: Request, res: Response) => {
     req.body,
     id
   );
-  return res
-    .status(200)
-    .json({ success: true, student_Type: updatesStudent_Type });
+  return res.status(200).json({
+    message: "Program Updated",
+    success: true,
+    program: updatesStudent_Type,
+  });
 });
 
 const removeStudent_Type = wrapper(async (req: Request, res: Response) => {
@@ -60,7 +62,9 @@ const removeStudent_Type = wrapper(async (req: Request, res: Response) => {
     throw new CustomError("invalid id", 403, "Not Exsiting");
   }
   const response = await deletingDocumentService(prisma.student_Type, id);
-  return res.status(200).json({ success: true, response });
+  return res
+    .status(200)
+    .json({ message: "Program Removed", success: true, response });
 });
 
 export {
