@@ -8,7 +8,6 @@ import { open } from "../../app/feauters/modal/modalSlice";
 import AddCourse from "./AddCourse";
 import EditCourse from "./EditCourse";
 import { removeCourse, setCourse } from "../../app/feauters/course/courseSlice";
-import { useQuery } from "@tanstack/react-query";
 
 import axios from "axios";
 import { fetchRequest, deleteRequest } from "../../utils/apiHelperMethodes";

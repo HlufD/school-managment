@@ -33,11 +33,11 @@ model Student {
   last_name      String
   age            Int
   sex            String
-  phone_number   String
+  phone_number   String        @unique
   picture        String
-  type           Student_Type  @relation(fields: [student_TypeId], references: [id])
+  type           Student_Type  @relation(fields: [student_TypeId], references: [type_code])
   student_TypeId String
-  deparetment    Department    @relation(fields: [departmentId], references: [id])
+  deparetment    Department    @relation(fields: [departmentId], references: [dep_code])
   departmentId   String
   courses        Course[]
   levels         Level[]

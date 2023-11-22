@@ -1,0 +1,50 @@
+.wrapper-student {
+    padding-bottom: 20px;
+    background-color: white;
+}
+
+.add-student {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    width: 80vw;
+    border-radius: 5px;
+    padding: 30px 20px;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    article {
+
+        width: 46%;
+
+        div {
+            margin-top: 20px;
+
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 20px;
+            outline: none;
+            border: 1px solid rgb(230, 228, 228);
+            transition: all .4s ease;
+
+            &:hover {
+                border: 1px solid #F07337;
+            }
+
+        }
+    }
+}
+
+.submit-button {
+    padding: 15px 40px;
+    background-color: #F07337;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    margin: 0 auto;
+    margin-left: 500px;
+}

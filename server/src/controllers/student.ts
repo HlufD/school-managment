@@ -9,6 +9,8 @@ import {
 } from "../services/service";
 import { prisma } from "../../script";
 import { CustomError } from "../middlewares/error/customError";
+import * as path from "path";
+const currentDir = path.resolve(__dirname);
 
 const createStudent = wrapper(async (req: Request, res: Response) => {
   const {
@@ -21,21 +23,40 @@ const createStudent = wrapper(async (req: Request, res: Response) => {
     student_TypeId,
     departmentId,
   } = req.body;
+
+  const studentImages = Array.isArray(req.files?.picture)
+    ? req.files?.picture
+    : [req.files?.picture];
+
+  if (!studentImages || studentImages.length === 0) {
+    return res
+      .status(400)
+      .json({ success: false, errorType: "No file or files uploaded" });
+  }
+  const imagePath = path.join(
+    currentDir,
+    "../../public/uploads/" + `${studentImages[0]?.name}`
+  );
+
+  await studentImages[0]?.mv(imagePath);
+  const pictureUrl = `/uploads/${studentImages[0]?.name}`;
+
   const student = await creatingServices(
     prisma.student,
     {
       first_name,
       last_name,
-      age,
+      age: Number(age),
       sex,
       phone_number,
-      picture,
+      picture: pictureUrl,
       student_TypeId,
       departmentId,
     },
-    { phone_number }
+    { phone_number: phone_number }
   );
-  res.status(201).json({ success: true, student });
+
+  res.status(201).json({ message: "Student Added", success: true, student });
 });
 
 const getAllStudent = wrapper(async (req: Request, res: Response) => {
@@ -70,7 +91,9 @@ const removeStudent = wrapper(async (req: Request, res: Response) => {
     throw new CustomError("invalid id", 403, "Not Exsiting");
   }
   const response = await deletingDocumentService(prisma.student, id);
-  return res.status(200).json({ success: true, response });
+  return res
+    .status(200)
+    .json({ message: "Student Removed", success: true, response });
 });
 
 export { createStudent, getAllStudent, getStudent, editStudent, removeStudent };

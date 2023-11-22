@@ -4,6 +4,8 @@ import modalSlice from "./feauters/modal/modalSlice";
 import courseSlice from "./feauters/course/courseSlice";
 import departmentSlice from "./feauters/department/departmentSlice";
 import otheStateSlice from "./feauters/other/otherSlice";
+import studentSlice from "./feauters/student/studentSlice";
+
 export const store = configureStore({
   reducer: {
     User: userSlice,
@@ -11,5 +13,6 @@ export const store = configureStore({
     Course: courseSlice,
     Department: departmentSlice,
     OthersStates: otheStateSlice,
+    Student: studentSlice,
   },
 });

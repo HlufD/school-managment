@@ -11,7 +11,6 @@ import { useLocalStorage } from "./hooks/useLocalStorage";
 import ListCourse from "./pages/Course/ListCourse";
 import ListDepartments from "./pages/Department/ListDepartments";
 import AddStudent from "./pages/Student/AddStudent";
-import ViweStudent from "./pages/Student/ViweStudent";
 import ListStudents from "./pages/Student/ListStudents";
 import EditStudent from "./pages/Student/EditStudent";
 import School_Years from "./pages/Years/School_Years";
@@ -41,7 +40,6 @@ function Root() {
               <Route path="school-years" element={<School_Years />} />
 
               <Route path="add_student" element={<AddStudent />} />
-              <Route path="viwe_student" element={<ViweStudent />} />
               <Route path="list_students" element={<ListStudents />} />
               <Route path="edit_student" element={<EditStudent />} />
             </Route>

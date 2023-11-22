@@ -6,18 +6,6 @@ import { useDispatch } from "react-redux";
 import { close } from "../../app/feauters/modal/modalSlice";
 import { addCourse } from "../../app/feauters/course/courseSlice";
 
-const validationSchema = Yup.object().shape({
-  course_name: Yup.string()
-    .required("course name is rerequired")
-    .min(3, "course name must at least 4 chars")
-    .max(30, "course name must at most 30 chars"),
-  course_code: Yup.string()
-    .required()
-    .min(3, "course code must at least 4 chars")
-    .max(30, "course code must at most 30 chars"),
-  credit_hour: Yup.number().required("credit_hour,is required"),
-});
-
 function AddCourse() {
   const dispatch = useDispatch();
   return (
