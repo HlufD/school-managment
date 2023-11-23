@@ -64,10 +64,6 @@ function ListDepartments() {
     }
   };
 
-  useEffect(() => {
-    fetchCourse();
-  }, [dispatch]);
-
   const data = departments.filter((v, i) => {
     const start = limit * (page - 1);
     const end = start + limit;

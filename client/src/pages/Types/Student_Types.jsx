@@ -31,13 +31,6 @@ function Student_Types() {
     ["Edit-program", <EdiTypes id={id} />],
   ]);
 
-  // fetching Programs
-  const fetchPrograms = async () => {
-    const data = await fetchRequest("http://localhost:5000/api/student_type");
-    const { student_Types } = data;
-    dispatch(setTypes(student_Types));
-  };
-
   // event Handlers
 
   const onAddPrograms = () => {
@@ -71,9 +64,6 @@ function Student_Types() {
     return i >= start && i < end;
   });
 
-  useEffect(() => {
-    fetchPrograms();
-  }, [dispatch]);
   return (
     <div className="list">
       <header className="course-header">

@@ -19,7 +19,6 @@ const createStudent = wrapper(async (req: Request, res: Response) => {
     age,
     sex,
     phone_number,
-    picture,
     student_TypeId,
     departmentId,
   } = req.body;
@@ -39,7 +38,7 @@ const createStudent = wrapper(async (req: Request, res: Response) => {
   );
 
   await studentImages[0]?.mv(imagePath);
-  const pictureUrl = `/uploads/${studentImages[0]?.name}`;
+  const pictureUrl = `http://localhost:5000/uploads/${studentImages[0]?.name}`;
 
   const student = await creatingServices(
     prisma.student,
@@ -81,7 +80,13 @@ const editStudent = wrapper(async (req: Request, res: Response) => {
     req.body,
     id
   );
-  return res.status(200).json({ success: true, student: updatedStudent });
+  return res
+    .status(200)
+    .json({
+      message: "Student updated",
+      success: true,
+      student: updatedStudent,
+    });
 });
 
 const removeStudent = wrapper(async (req: Request, res: Response) => {

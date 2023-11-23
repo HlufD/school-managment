@@ -1,10 +1,10 @@
 import { Formik, Form, Field } from "formik";
-import { postRequest } from "../../utils/apiHelperMethodes";
+import { updateRequest } from "../../utils/apiHelperMethodes";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { close } from "../../app/feauters/modal/modalSlice";
-import { addCourse } from "../../app/feauters/course/courseSlice";
 import studentValidation from "../../validations/student";
+import { updateStudent } from "../../app/feauters/student/studentSlice";
 
 import("../../styles/students.scss");
 
@@ -14,22 +14,29 @@ function EditStudent({ id }) {
   console.log(currentStudent);
   const dispatch = useDispatch();
   return (
-    <div>
+    <div className="student-wrapper">
+      <div className="profile-image">
+        <img src={currentStudent.picture} alt="img" />
+      </div>
+
       <div className="wrapper-student">
         <Formik
           initialValues={currentStudent}
           validationSchema={studentValidation}
-          onSubmit={async (course) => {
-            const data = await postRequest(
-              "http://localhost:5000/api/courese",
-              course
+          onSubmit={async (student) => {
+            const data = await updateRequest(
+              "http://localhost:5000/api/students/",
+              id,
+              student
             );
             if (data["errorType"]) {
               toast.error(data["message"]);
             }
+            console.log(data);
             if (!data["errorType"]) {
+              const { student } = data;
               toast.success(data["message"]);
-              dispatch(addCourse({ course: data.course }));
+              dispatch(updateStudent(student));
               dispatch(close());
             }
           }}
@@ -136,20 +143,6 @@ function EditStudent({ id }) {
                       <p className="error">{errors.departmentId}</p>
                     ) : null}
                   </div>
-                  {/* <div>
-                    <Field
-                      required
-                      type="file"
-                      placeholder="Picture"
-                      onChange={handleChange}
-                      value={values.picture}
-                      name="picture"
-                      id=""
-                    />
-                    {errors.picture && touched.picture ? (
-                      <p className="error">{errors.picture}</p>
-                    ) : null}
-                  </div> */}
                 </article>
               </div>
 

@@ -12,7 +12,7 @@ const studentSlice = createSlice({
     },
     removeStudent: (state, action) => {
       state.students = state.students.filter(
-        (student) => student.id === action.payload.id
+        (student) => student.id !== action.payload.id
       );
     },
     updateStudent: (state, action) => {

@@ -38,10 +38,7 @@ function Root() {
               <Route path="levels" element={<Levels />} />
               <Route path="student-types" element={<Student_Types />} />
               <Route path="school-years" element={<School_Years />} />
-
-              <Route path="add_student" element={<AddStudent />} />
               <Route path="list_students" element={<ListStudents />} />
-              <Route path="edit_student" element={<EditStudent />} />
             </Route>
           </>
         )}

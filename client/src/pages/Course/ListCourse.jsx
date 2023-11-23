@@ -57,14 +57,6 @@ function ListCourse() {
     }
   };
 
-  const fetchCourse = async () => {
-    const data = await fetchRequest("http://localhost:5000/api/courese");
-    dispatch(setCourse({ courses: data.courses }));
-  };
-
-  useEffect(() => {
-    fetchCourse();
-  }, [dispatch]);
   // paggination
   const data = courses.filter((v, i) => {
     const start = limit * (page - 1);

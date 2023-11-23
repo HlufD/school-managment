@@ -10,7 +10,6 @@
     background-color: white;
     width: 80vw;
     border-radius: 5px;
-    padding: 30px 20px;
     justify-content: space-between;
     margin-bottom: 20px;
 
@@ -47,4 +46,25 @@
     color: white;
     margin: 0 auto;
     margin-left: 500px;
+}
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    padding: 3px;
+    background-color: #bebebd;
+
+    img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
+}
+
+.student-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }

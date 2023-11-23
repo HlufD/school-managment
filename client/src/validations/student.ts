@@ -12,7 +12,7 @@ const validationSchema = Yup.object().shape({
     .min(3, "sex must have at least 3 characters")
     .max(30, "sexName must have at most 30 characters"),
   phone_number: Yup.string().required("phone_number is required"),
-  student_TypeId: Yup.number().required("student_TypeId is required"),
+  student_TypeId: Yup.string().required("student_TypeId is required"),
   departmentId: Yup.string().required("departmentId is required"),
   picture: Yup.string().required("picture is required"),
 });

@@ -34,7 +34,6 @@ function ListStudents() {
     ["Edit-student", <EditStudent id={id} />],
   ]);
   const onAddStudentsss = () => {
-    console.log("Hi");
     dispatch(open("Add-student"));
   };
 
@@ -58,17 +57,6 @@ function ListStudents() {
       toast.success(data["message"]);
     }
   };
-
-  const fetchCourse = async () => {
-    const data = await fetchRequest("http://localhost:5000/api/students");
-    const { students } = data;
-    dispatch(setStudent(students));
-  };
-
-  useEffect(() => {
-    fetchCourse();
-  }, [dispatch]);
-  console.log(students);
 
   // paggination
   const data = students.filter((v, i) => {

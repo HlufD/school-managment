@@ -75,22 +75,14 @@ function SideNav() {
             >
               Dashboard
             </Nav.Item>
-            <Nav.Menu
-              placement="rightStart"
+            <Nav.Item
+              as={NavLink}
+              href="list_students"
               eventKey="2"
-              title="Students"
               icon={<Icon as={FaGraduationCap} />}
             >
-              <Nav.Item as={NavLink} href="add_student" eventKey="2-1">
-                Register Student
-              </Nav.Item>
-              <Nav.Item as={NavLink} href="list_students" eventKey="2-3">
-                List Student
-              </Nav.Item>
-              <Nav.Item as={NavLink} href="edit_student" eventKey="2-4">
-                Edit Student
-              </Nav.Item>
-            </Nav.Menu>
+              Students
+            </Nav.Item>
 
             <Nav.Item
               as={NavLink}
