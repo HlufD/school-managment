@@ -5,7 +5,7 @@ import courseSlice from "./feauters/course/courseSlice";
 import departmentSlice from "./feauters/department/departmentSlice";
 import otheStateSlice from "./feauters/other/otherSlice";
 import studentSlice from "./feauters/student/studentSlice";
-
+import studentCourseSlice from "./feauters/student_course/studentCourseSlice";
 export const store = configureStore({
   reducer: {
     User: userSlice,
@@ -14,5 +14,6 @@ export const store = configureStore({
     Department: departmentSlice,
     OthersStates: otheStateSlice,
     Student: studentSlice,
+    studentCourse: studentCourseSlice,
   },
 });

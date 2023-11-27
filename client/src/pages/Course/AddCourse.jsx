@@ -1,10 +1,10 @@
 import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
 import { postRequest } from "../../utils/apiHelperMethodes";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { close } from "../../app/feauters/modal/modalSlice";
 import { addCourse } from "../../app/feauters/course/courseSlice";
+import validationSchema from "../../validations/course";
 
 function AddCourse() {
   const dispatch = useDispatch();

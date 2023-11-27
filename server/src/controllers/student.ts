@@ -7,6 +7,7 @@ import {
   retrivingAllFromDb_Service,
   updatingDocumentService,
 } from "../services/service";
+
 import { prisma } from "../../script";
 import { CustomError } from "../middlewares/error/customError";
 import * as path from "path";
@@ -65,7 +66,22 @@ const getAllStudent = wrapper(async (req: Request, res: Response) => {
 
 const getStudent = wrapper(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const student = await getSingleDocumentService(prisma.student, id);
+  const student = await prisma.student.findUnique({
+    where: { id },
+    include: {
+      deparetment: {
+        select: {
+          dep_name: true,
+        },
+      },
+      Student_Course: {
+        include: {
+          course: true,
+        },
+      },
+      levels: true,
+    },
+  });
   return res.status(200).json({ success: true, student });
 });
 
@@ -80,13 +96,11 @@ const editStudent = wrapper(async (req: Request, res: Response) => {
     req.body,
     id
   );
-  return res
-    .status(200)
-    .json({
-      message: "Student updated",
-      success: true,
-      student: updatedStudent,
-    });
+  return res.status(200).json({
+    message: "Student updated",
+    success: true,
+    student: updatedStudent,
+  });
 });
 
 const removeStudent = wrapper(async (req: Request, res: Response) => {

@@ -11,7 +11,6 @@ import("../../styles/students.scss");
 function EditStudent({ id }) {
   const { students } = useSelector((store) => store.Student);
   const currentStudent = students.find((student) => student.id === id);
-  console.log(currentStudent);
   const dispatch = useDispatch();
   return (
     <div className="student-wrapper">

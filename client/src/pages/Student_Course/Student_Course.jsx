@@ -1,21 +1,18 @@
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import AddStudent from "./AddStudent";
-import EditStudent from "./EditStudent";
-import { deleteRequest, fetchRequest } from "../../utils/apiHelperMethodes";
-import { FaTrash, FaRegEdit, FaEye } from "react-icons/fa";
+import("../../styles/student_coures.scss");
+import { removeStudentCourse } from "../../app/feauters/student_course/studentCourseSlice";
+import { deleteRequest } from "../../utils/apiHelperMethodes";
+import Add from "./Add";
+import Edit from "./Edit";
+import { FaTrash, FaRegEdit } from "react-icons/fa";
 import { Pagination, Table } from "rsuite";
-import Modal from "../../components/Modal";
-import { toast } from "react-toastify";
-const { Column, HeaderCell, Cell } = Table;
-import {
-  removeStudent,
-  setStudent,
-} from "../../app/feauters/student/studentSlice";
 import { open } from "../../app/feauters/modal/modalSlice";
-import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import Modal from "../../components/Modal";
+const { Column, HeaderCell, Cell } = Table;
 
-function ListStudents() {
+function Student_Course() {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
 
@@ -26,20 +23,20 @@ function ListStudents() {
   };
 
   const { openFor, isOpend } = useSelector((store) => store.Modal);
-  const { students } = useSelector((store) => store.Student);
+  const { student_courses } = useSelector((store) => store.studentCourse);
   const dispatch = useDispatch();
 
   // mapping the open modal with componentes
   const openMap = new Map([
-    ["Add-student", <AddStudent />],
-    ["Edit-student", <EditStudent id={id} />],
+    ["Add-student_course", <Add />],
+    ["Edit-student_course", <Edit id={id} />],
   ]);
   const onAddStudentsss = () => {
-    dispatch(open("Add-student"));
+    dispatch(open("Add-student_course"));
   };
 
   const onEdit = (id) => {
-    dispatch(open("Edit-student"));
+    dispatch(open("Edit-student_course"));
     setId(id);
   };
   const onDelete = async (id) => {
@@ -48,19 +45,19 @@ function ListStudents() {
     );
     if (userResponse) {
       const data = await deleteRequest(
-        "http://localhost:5000/api/students",
+        "http://localhost:5000/api/studet_courses",
         id
       );
       if (data["errorType"]) {
         toast.error(data["message"]);
       }
-      dispatch(removeStudent({ id }));
+      dispatch(removeStudentCourse({ id }));
       toast.success(data["message"]);
     }
   };
 
   // paggination
-  const data = students.filter((v, i) => {
+  const data = student_courses.filter((v, i) => {
     const start = limit * (page - 1);
     const end = start + limit;
     return i >= start && i < end;
@@ -80,72 +77,44 @@ function ListStudents() {
       </header>
       <hr />
       <Table height={300} data={data}>
-        <Column width={100} align="center" resizable>
+        <Column width={200} align="center" resizable>
           <HeaderCell>Id</HeaderCell>
           <Cell dataKey="id" />
         </Column>
 
-        <Column width={100} resizable>
-          <HeaderCell>First Name</HeaderCell>
-          <Cell dataKey="first_name" />
+        <Column width={200} resizable>
+          <HeaderCell>Student ID</HeaderCell>
+          <Cell dataKey="studentId" />
         </Column>
 
-        <Column width={100} resizable>
-          <HeaderCell>Last Name</HeaderCell>
-          <Cell dataKey="last_name" />
+        <Column width={200} resizable>
+          <HeaderCell>Course ID</HeaderCell>
+          <Cell dataKey="courseId" />
         </Column>
 
-        <Column width={100} resizable>
-          <HeaderCell>Age</HeaderCell>
-          <Cell dataKey="age" />
-        </Column>
-        <Column width={70} resizable>
-          <HeaderCell>Sex</HeaderCell>
-          <Cell dataKey="sex" />
-        </Column>
-
-        <Column width={130} resizable>
-          <HeaderCell>phone_number</HeaderCell>
-          <Cell dataKey="phone_number" />
-        </Column>
-        <Column width={100} resizable>
-          <HeaderCell>Sex</HeaderCell>
-          <Cell dataKey="sex" />
-        </Column>
-
-        <Column width={100} resizable>
-          <HeaderCell>Department</HeaderCell>
-          <Cell dataKey="departmentId" />
+        <Column width={200} resizable>
+          <HeaderCell>Course Name</HeaderCell>
+          <Cell dataKey="course_name" />
         </Column>
         <Column width={100} resizable>
           <HeaderCell>Edit</HeaderCell>
           <Cell>
-            {(student) => (
+            {(course) => (
               <FaRegEdit
                 className="edit icon"
-                onClick={() => onEdit(student.id)}
+                onClick={() => onEdit(course.id)}
               />
             )}
           </Cell>
         </Column>
-        <Column width={50} resizable>
+        <Column width={100} resizable>
           <HeaderCell>Delete</HeaderCell>
           <Cell>
-            {(student) => (
+            {(course) => (
               <FaTrash
                 className="delete icon"
-                onClick={() => onDelete(student.id)}
+                onClick={() => onDelete(course.id)}
               />
-            )}
-          </Cell>
-        </Column>
-        <Column width={50} resizable>
-          <HeaderCell>Viwe</HeaderCell>
-          <Cell>
-            {(student) => (
-              <Link to={`/dashboard/viwe_student/${student.id}`}>
-                <FaEye className="delete icon" />
-              </Link>
             )}
           </Cell>
         </Column>
@@ -161,7 +130,7 @@ function ListStudents() {
           maxButtons={5}
           size="xs"
           layout={["total", "-", "limit", "|", "pager", "skip"]}
-          total={students.length}
+          total={student_courses.length}
           limitOptions={[10, 30, 50]}
           limit={limit}
           activePage={page}
@@ -174,4 +143,4 @@ function ListStudents() {
   );
 }
 
-export default ListStudents;
+export default Student_Course;

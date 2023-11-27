@@ -32,7 +32,7 @@ async function getSingleDocumentService<T>(
   id: string,
   relationFiltering: any = {}
 ) {
-  const doucment = await (modelName as any).findUnique({
+  const doucment = await (modelName as any).findFirst({
     where: {
       id,
     },

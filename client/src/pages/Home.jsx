@@ -11,6 +11,7 @@ import { setStudent } from "../app/feauters/student/studentSlice";
 import { setTypes } from "../app/feauters/other/otherSlice";
 import { setDepartment } from "../app/feauters/department/departmentSlice";
 import { setCourse } from "../app/feauters/course/courseSlice";
+import { setStudent_Course } from "../app/feauters/student_course/studentCourseSlice";
 import("../styles/Home.scss");
 
 function Home() {
@@ -56,12 +57,28 @@ function Home() {
     const data = await fetchRequest("http://localhost:5000/api/courese");
     dispatch(setCourse({ courses: data.courses }));
   };
+  // fetching student coures
+  const fetchStudentCourse = async () => {
+    const data = await fetchRequest("http://localhost:5000/api/studet_courses");
+    const studentCoures = data.students_course.map((item) => {
+      const {
+        id,
+        studentId,
+        courseId,
+        course: { course_name },
+      } = item;
+      return { id, studentId, courseId, course_name };
+    });
+
+    dispatch(setStudent_Course(studentCoures));
+  };
 
   useEffect(() => {
     fetchStudents();
     fetchPrograms();
     fetchDepartment();
     fetchCourse();
+    fetchStudentCourse();
   }, [dispatch]);
 
   return (

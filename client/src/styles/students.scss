@@ -68,3 +68,56 @@
     align-items: center;
     justify-content: center;
 }
+
+//viwe
+.wrapper {
+    padding: 10px;
+    width: 80vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-radius: 6px;
+    margin-top: 350px;
+
+    overflow-y: scroll;
+
+
+    .form-wrapper {
+
+        width: 100%;
+        padding: 20px;
+
+        .half-form {
+            display: flex;
+            justify-content: space-around;
+
+            article {
+                width: 47%;
+
+                div {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+
+                    span {
+                        width: 18%;
+                    }
+
+                    input {
+                        width: 82%;
+                        padding: 11px 20px;
+                        outline: none;
+                        margin-bottom: 15px;
+                        border: 1px solid rgb(212, 212, 212);
+                        border-radius: 3px;
+
+                    }
+                }
+
+
+
+            }
+        }
+    }
+}

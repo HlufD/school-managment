@@ -19,7 +19,7 @@ import { logout } from "../app/feauters/user/userSlice";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 axios.defaults.withCredentials = true;
 
-const NavLink = React.forwardRef(({ href, children, ...rest }, ref) => (
+export const NavLink = React.forwardRef(({ href, children, ...rest }, ref) => (
   <Link ref={ref} to={href} {...rest}>
     {children}
   </Link>
@@ -118,8 +118,11 @@ function SideNav() {
               <Nav.Item as={NavLink} href="levels" eventKey="5-2">
                 Leves
               </Nav.Item>
-              <Nav.Item as={NavLink} href="student-types" eventKey="5-2">
+              <Nav.Item as={NavLink} href="student-types" eventKey="5-3">
                 Programs
+              </Nav.Item>
+              <Nav.Item as={NavLink} href="student_course" eventKey="5-4">
+                Student Courese
               </Nav.Item>
             </Nav.Menu>
             <Nav.Item eventKey="7" icon={<Icon as={MdLogout} />}>

@@ -11,6 +11,7 @@ import levelsRouter from "./src/Routes/level";
 import studentTypeRouter from "./src/Routes/student_type";
 import schoolYearRouter from "./src/Routes/school_year";
 import studentRouter from "./src/Routes/student";
+import studentCourseRouter from "./src/Routes/student_course";
 import fileUpload from "express-fileupload";
 
 dotenv.config();
@@ -29,6 +30,7 @@ app.use("/api/levels", levelsRouter);
 app.use("/api/student_type", studentTypeRouter);
 app.use("/api/school_years", schoolYearRouter);
 app.use("/api/students", studentRouter);
+app.use("/api/studet_courses", studentCourseRouter);
 
 // error handling middlewares
 app.use(errorHandler);

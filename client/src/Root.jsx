@@ -16,6 +16,8 @@ import EditStudent from "./pages/Student/EditStudent";
 import School_Years from "./pages/Years/School_Years";
 import Levels from "../src/pages/levels/Levels";
 import Student_Types from "./pages/Types/Student_Types";
+import Student_Course from "./pages/Student_Course/Student_Course";
+import Viwe from "./pages/Student/viwe";
 
 import("./styles/Course.scss");
 
@@ -39,6 +41,8 @@ function Root() {
               <Route path="student-types" element={<Student_Types />} />
               <Route path="school-years" element={<School_Years />} />
               <Route path="list_students" element={<ListStudents />} />
+              <Route path="student_course" element={<Student_Course />} />
+              <Route path="viwe_student/:id" element={<Viwe />} />
             </Route>
           </>
         )}
